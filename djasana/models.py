@@ -80,13 +80,13 @@ class Attachment(NamedModel):
         ('other', 'other'),
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    download_url = models.URLField(max_length=1024)
+    download_url = models.URLField(max_length=5120)
     host = models.CharField(choices=host_choices, max_length=24)
     parent = models.ForeignKey('Task', to_field='remote_id', on_delete=models.CASCADE)
-    permanent_url = models.URLField(max_length=1024)
+    permanent_url = models.URLField(max_length=5120)
     resource_type = models.CharField(max_length=24, null=True, blank=True, default='attachment')
     type = models.CharField(choices=type_choices, max_length=24, null=True, blank=True)
-    view_url = models.URLField(max_length=1024)
+    view_url = models.URLField(max_length=5120)
 
     def asana_url(self, **kwargs):
         return self.permanent_url
@@ -104,6 +104,7 @@ class CustomField(NamedModel):
     description = models.CharField(max_length=1024, null=True, blank=True)
     enum_options = models.CharField(max_length=1024, null=True, blank=True)
     is_global_to_workspace = models.BooleanField(default=False)
+    has_notifications_enabled = models.BooleanField(default=False)
     precision = models.SmallIntegerField(choices=precision_choices, null=True, blank=True)
     resource_subtype = models.CharField(
         choices=subtype_choices, max_length=24, null=True, blank=True)
